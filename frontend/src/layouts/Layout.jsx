@@ -1,4 +1,3 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 import Rightbar from "~/components/Rightbar/Rightbar";
 import Sidebar from "~/components/Sidebar/Sidebar";
@@ -8,7 +7,9 @@ const Layout = () => {
   return (
     <Container>
       <Sidebar />
-      <Outlet />
+      <div className="flex-1 ml-64 mr-80 overflow-y-auto ">
+        <Outlet />
+      </div>
       <Rightbar />
     </Container>
   );

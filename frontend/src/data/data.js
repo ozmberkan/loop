@@ -1,10 +1,4 @@
-import {
-  FiHome,
-  FiUser,
-  FiBell,
-  FiMessageCircle,
-  FiMenu,
-} from "react-icons/fi";
+import { FiHome, FiUser, FiBell, FiMessageCircle } from "react-icons/fi";
 import { AiOutlineFire } from "react-icons/ai";
 import { MdOutlineLibraryBooks } from "react-icons/md";
 

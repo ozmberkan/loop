@@ -6,7 +6,7 @@ import LowerLink from "../UI/Sidebar/LowerLink";
 
 const Sidebar = () => {
   return (
-    <div className="min-w-64 max-w-64 p-5 flex flex-col items-start justify-start border-r gap-8">
+    <div className="min-w-64 max-w-64 p-5 flex flex-col items-start justify-start border-r gap-8 fixed top-0 bg-white h-full">
       <Link to="/" className="w-full">
         <img src={Logo} className="w-20" alt="Logo" />
       </Link>
