@@ -13,7 +13,7 @@ const UpperLink = () => {
             `flex items-center gap-3 w-full font-semibold py-2.5 rounded-xl px-4 text-base ${
               isActive
                 ? "bg-primary text-white"
-                : "hover:bg-neutral-50 text-neutral-700"
+                : "hover:bg-zinc-100 text-neutral-700"
             }`
           }
         >

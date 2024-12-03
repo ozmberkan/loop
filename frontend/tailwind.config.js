@@ -8,6 +8,7 @@ export default {
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
+        geist: ["Geist", "sans-serif"],
       },
       backgroundImage: {
         premium: "url('/src/assets/premium.svg')",
