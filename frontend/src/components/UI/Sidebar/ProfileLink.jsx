@@ -3,7 +3,7 @@ import { FiMenu } from "react-icons/fi";
 
 const ProfileLink = () => {
   return (
-    <div className="mt-auto border-t pt-3 w-full   text-sm flex justify-between    items-center gap-x-2">
+    <div className="mt-auto border-t pt-3 w-full text-sm flex justify-between    items-center gap-x-2">
       <div className="flex items-center gap-x-3">
         <img
           src="https://avatars.githubusercontent.com/u/148571945?v=4"

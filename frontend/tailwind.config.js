@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
       },
+      backgroundImage: {
+        premium: "url('/src/assets/premium.svg')",
+      },
     },
   },
   plugins: [],

@@ -4,7 +4,7 @@ import { UpperLinks } from "~/data/data";
 
 const UpperLink = () => {
   return (
-    <div className="w-full flex flex-col gap-2 items-start justify-start h-full">
+    <div className="w-full flex flex-col gap-2 items-start justify-start  ">
       {UpperLinks.map((link) => (
         <NavLink
           key={link.id}

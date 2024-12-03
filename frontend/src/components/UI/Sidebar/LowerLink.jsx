@@ -4,7 +4,7 @@ import { LowerLinks } from "~/data/data";
 
 const LowerLink = () => {
   return (
-    <div className="w-full flex flex-col gap-2 items-start justify-start h-full">
+    <div className="w-full flex flex-col gap-2 items-start justify-start h-full ">
       {LowerLinks.map((link) => (
         <NavLink
           id={link.id}
