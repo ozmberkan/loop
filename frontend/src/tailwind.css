@@ -6,6 +6,17 @@ body {
   @apply font-geist;
 }
 
+.draggable-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Taşma durumlarını kontrol eder */
+}
+
+.draggable-item {
+  cursor: grab; /* Drag için kullanıcıya görsel ipucu verir */
+}
+
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
