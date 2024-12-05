@@ -4,9 +4,12 @@ import { TbDoorExit, TbMoodSmile, TbPhoto } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 const PostAddModal = ({ setPostModal }) => {
   const rootModal = document.getElementById("root-modal");
+
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const { register, handleSubmit } = useForm();
 
@@ -60,9 +63,17 @@ const PostAddModal = ({ setPostModal }) => {
               >
                 <TbPhoto />
               </label>
-              <input type="file" id="file" name="file" className="hidden" />
+              <input
+                type="file"
+                id="file"
+                name="file"
+                className="hidden"
+                onChange={(e) => setSelectedPhoto(e.target.files)}
+              />
             </div>
-
+            <span className="ml-2 text-xs">
+              {selectedPhoto && selectedPhoto[0]?.name.split(".").slice(0, 1)}
+            </span>
             <button
               type="submit"
               className="bg-primary text-white px-4 py-2 rounded-lg ml-auto"

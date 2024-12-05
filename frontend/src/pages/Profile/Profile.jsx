@@ -1,5 +1,6 @@
 import React from "react";
 import { TbEdit, TbEditCircle } from "react-icons/tb";
+import Post from "~/components/Post/Post";
 
 const Profile = () => {
   return (
@@ -9,7 +10,7 @@ const Profile = () => {
           backgroundImage:
             "url('https://pbs.twimg.com/profile_banners/704375542221557760/1652889855/1500x500')",
         }}
-        className="w-full  h-[200px] relative"
+        className="w-full  min-h-[200px] relative"
       >
         {/* Profil resmi */}
         <img
@@ -36,6 +37,10 @@ const Profile = () => {
             <span className="text-sm">25 Takip Ediyor</span>
           </div>
         </div>
+      </div>
+      <div className="w-full p-5 grid grid-cols-2 gap-5">
+        <Post />
+        <Post />
       </div>
     </div>
   );
