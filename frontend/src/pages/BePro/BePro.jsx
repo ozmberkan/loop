@@ -7,11 +7,6 @@ import { CiStar } from "react-icons/ci";
 const BePro = () => {
   return (
     <div className="bg-pro bg-cover w-full h-full flex justify-start flex-col gap-12 items-center relative p-12">
-      <CiStar
-        size={60}
-        className="absolute top-12 left-12 w-32 h-32 text-primary rotate-12 opacity-20"
-      />
-
       <div className="flex flex-col gap-3 text-center">
         <h1 className="text-3xl font-bold">Pro'ya Yükselt</h1>
         <p className="text-neutral-800">
@@ -22,7 +17,7 @@ const BePro = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 1 }}
         className="bg-white rounded-xl shadow-2xl  w-[400px]  z-10 border overflow-hidden"
       >
         <div className="w-full bg-gradient-to-tr  to-primary from-sky-300 h-[7rem] flex justify-center items-center text-center flex-col gap-2  ">
