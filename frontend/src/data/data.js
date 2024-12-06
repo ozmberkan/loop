@@ -1,4 +1,11 @@
-import { FiHome, FiUser, FiBell, FiMessageCircle } from "react-icons/fi";
+import {
+  FiHome,
+  FiUser,
+  FiBell,
+  FiMessageCircle,
+  FiMail,
+  FiLock,
+} from "react-icons/fi";
 import { AiOutlineFire } from "react-icons/ai";
 import { MdOutlineLibraryBooks } from "react-icons/md";
 
@@ -76,5 +83,51 @@ export const faqItems = [
     question: "Birden fazla cihazda kullanabilir miyim?",
     answer:
       "Evet, hesabınızı aynı anda birden fazla cihazda kullanabilirsiniz. Tüm senkronizasyon otomatik olarak yapılır.",
+  },
+];
+
+export const regInputs = [
+  {
+    id: 1,
+    label: "Kullanıcı Adı",
+    name: "username",
+    icon: FiUser,
+    type: "text",
+    placeholder: "Kullanıcı adını giriniz...",
+  },
+  {
+    id: 2,
+    label: "E-Posta",
+    name: "email",
+    icon: FiMail,
+    type: "email",
+    placeholder: "E-Postanızı giriniz...",
+  },
+  {
+    id: 3,
+    label: "Parola",
+    name: "password",
+    icon: FiLock,
+    type: "password",
+    placeholder: "Parolanızı giriniz...",
+  },
+];
+
+export const logInputs = [
+  {
+    id: 1,
+    label: "E-Posta",
+    name: "email",
+    icon: FiMail,
+    type: "email",
+    placeholder: "E-Postanızı giriniz...",
+  },
+  {
+    id: 2,
+    label: "Parola",
+    name: "password",
+    icon: FiLock,
+    type: "password",
+    placeholder: "Parolanızı giriniz...",
   },
 ];
