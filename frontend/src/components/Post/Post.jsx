@@ -1,5 +1,6 @@
 import React from "react";
 import { TbHeart, TbMessage } from "react-icons/tb";
+import { Link } from "react-router-dom";
 import post1 from "~/assets/post2.jpg";
 
 const Post = () => {
@@ -10,7 +11,10 @@ const Post = () => {
         className="rounded-xl max-h-[400px] w-full object-cover shadow"
       />
       <div className="flex items-center  gap-x-1 justify-between w-full">
-        <div className="flex gap-x-2 ">
+        <Link
+          to="/profile/ozmberkan"
+          className="flex gap-x-2 hover:bg-neutral-100 p-2 rounded-md "
+        >
           <img
             src="https://avatars.githubusercontent.com/u/148571945?v=4"
             className="w-10 h-10 rounded-md object-cover"
@@ -19,7 +23,7 @@ const Post = () => {
             <h1 className="font-semibold">Berkan Özmen</h1>
             <span className="text-xs">@ozmberkan</span>
           </div>
-        </div>
+        </Link>
         <span className="text-xs text-neutral-400">5.12.2024</span>
       </div>
       <div className="flex items-start justify-start">

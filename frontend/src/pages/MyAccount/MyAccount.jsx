@@ -2,7 +2,7 @@ import React from "react";
 import { TbEdit, TbEditCircle } from "react-icons/tb";
 import Post from "~/components/Post/Post";
 
-const Profile = () => {
+const MyAccount = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <div
@@ -46,4 +46,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default MyAccount;

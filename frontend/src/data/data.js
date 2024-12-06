@@ -6,7 +6,7 @@ export const UpperLinks = [
   { id: 1, to: "/", label: "Anasayfa", icon: FiHome, id: "home" },
   {
     id: 2,
-    to: "/profile/ozmberkan",
+    to: "/my-account/ozmberkan",
     label: "Profilim",
     icon: FiUser,
     id: "profile",

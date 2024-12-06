@@ -4,14 +4,14 @@ import Documents from "~/pages/Documents/Documents";
 import Home from "~/pages/Home/Home";
 import MyMessages from "~/pages/MyMessages/MyMessages";
 import MyNotifications from "~/pages/MyNotifications/MyNotifications";
-import Profile from "~/pages/Profile/Profile";
+import MyAccount from "~/pages/MyAccount/MyAccount";
 
 export const HomeRoute = {
   path: "/",
   element: <Layout />,
   children: [
     { path: "/", element: <Home /> },
-    { path: "/profile/:username", element: <Profile /> },
+    { path: "/my-account/:username", element: <MyAccount /> },
     { path: "/my-notifications", element: <MyNotifications /> },
     { path: "/my-messages", element: <MyMessages /> },
     { path: "/upgrade-to-pro", element: <BePro /> },

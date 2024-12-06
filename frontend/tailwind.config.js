@@ -13,6 +13,7 @@ export default {
       backgroundImage: {
         premium: "url('/src/assets/premium.svg')",
         pro: "url('/src/assets/pro.svg')",
+        login: "url('/src/assets/login.svg')",
       },
     },
   },

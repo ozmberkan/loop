@@ -8,8 +8,8 @@ const BePro = () => {
   return (
     <div className="bg-pro bg-cover w-full h-full flex justify-start flex-col gap-12 items-center relative p-12">
       <div className="flex flex-col gap-3 text-center">
-        <h1 className="text-3xl font-bold">Pro'ya Yükselt</h1>
-        <p className="text-neutral-800">
+        <h1 className="text-4xl text-primary font-black">Pro'ya Yükselt</h1>
+        <p className="text-primary/70 font-medium">
           Pro üyelik ile tüm özelliklere sınırsız erişim kazanın ve ayrıcalıklı
           içeriklerden yararlanın.
         </p>
@@ -28,8 +28,8 @@ const BePro = () => {
         </div>
 
         <div className="flex flex-col items-start justify-start text-center p-3">
-          <h1 className="text-4xl font-semibold text-primary">
-            ₺99 <span className="text-xs text-[#abd2f7]">/ay</span>
+          <h1 className="text-4xl my-3 font-semibold text-primary">
+            ₺99 <span className="text-xs text-[#97c9f8]">/ay</span>
           </h1>
           <div className="flex flex-col mt-3 gap-5">
             <div className="flex items-center gap-x-2 ">
