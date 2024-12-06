@@ -37,14 +37,14 @@ const Login = () => {
 
   return (
     <div className="w-full flex justify-start items-start h-full">
-      <div className="min-w-[30%] max-w-[30%] bg-login bg-cover h-full drop-shadow-2xl flex justify-center items-center">
-        <h1 className="uppercase text-white drop-shadow-xl text-[190px] font-black  w-full  transform -rotate-90 ">
-          giriş yap
-        </h1>
-      </div>
-      <div className="w-full h-full flex justify-center items-center flex-col ">
+      <div className="min-w-[30%] max-w-[30%] bg-login bg-cover h-full drop-shadow-2xl flex justify-center items-center"></div>
+      <div className="w-full h-full flex justify-center items-center flex-col relative ">
         <div className="w-[400px] h-[600px] flex justify-start items-start flex-col">
-          <img src={Logo} className="w-28" />
+          <img src={Logo} className="w-28 my-5 absolute top-3 right-7 drop-shadow-xl" />
+          <h1 className="font-extrabold text-primary text-4xl">Oturum aç</h1>
+          <p className="text-sm font-medium text-neutral-500 my-2">
+            Bilgilerini girerek loop'a ulaşabilir, keşfetmeye başlayabilirsin.
+          </p>
           <form
             className=" h-[600px] w-full mt-4 flex flex-col gap-3.5"
             onSubmit={handleSubmit(loginHandle)}
@@ -81,7 +81,7 @@ const Login = () => {
                 to="/forgot-password"
                 className="text-sm hover:underline text-neutral-500"
               >
-                Şifremi Unuttum
+                Parolamı Unuttum
               </Link>
               <Link
                 to="/register"
