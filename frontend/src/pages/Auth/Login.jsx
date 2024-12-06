@@ -77,7 +77,10 @@ const Login = () => {
             ))}
 
             <div className="w-full flex justify-between items-center ">
-              <Link className="text-sm hover:underline text-neutral-500">
+              <Link
+                to="/forgot-password"
+                className="text-sm hover:underline text-neutral-500"
+              >
                 Şifremi Unuttum
               </Link>
               <Link

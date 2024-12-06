@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Auth = require("../models/auth.js");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 
 const register = async (req, res) => {
   try {
@@ -126,4 +128,74 @@ const signOut = async (req, res) => {
   res.status(200).json({ message: "Çıkış yapıldı" });
 };
 
-module.exports = { register, login, getUser, signOut };
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await Auth.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "Bu e-posta adresi kayıtlı değil." });
+    }
+
+    const secret = process.env.JWT_SECRET + user.password;
+    const payload = { id: user._id, email: user.email };
+    const resetToken = jwt.sign(payload, secret, { expiresIn: "1h" });
+
+    const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}&id=${user._id}`;
+
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: "no-reply@loop.com",
+      to: email,
+      subject: "Şifre Sıfırlama Talebi",
+      text: `Şifrenizi sıfırlamak için bu bağlantıya tıklayın: ${resetUrl}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: "Şifre sıfırlama bağlantısı gönderildi." });
+  } catch (error) {
+    console.error("Hata Detayı:", error);
+    res.status(500).json({ message: "Sunucu Hatası: " + error.message });
+  }
+};
+const resetPassword = async (req, res) => {
+  const { token, id, newPassword } = req.body;
+
+  try {
+    const user = await Auth.findOne({ id });
+    if (!user) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı." });
+    }
+
+    const secret = process.env.JWT_SECRET + user.password;
+    jwt.verify(token, secret);
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Şifre başarıyla güncellendi." });
+  } catch (error) {
+    console.error("Hata Detayı:", error);
+    res.status(400).json({ message: "Geçersiz veya süresi dolmuş token." });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  getUser,
+  signOut,
+  forgotPassword,
+  resetPassword,
+};
