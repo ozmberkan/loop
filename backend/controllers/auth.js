@@ -133,6 +133,7 @@ const forgotPassword = async (req, res) => {
     const { email } = req.body;
 
     const user = await Auth.findOne({ email });
+
     if (!user) {
       return res
         .status(404)
@@ -140,8 +141,8 @@ const forgotPassword = async (req, res) => {
     }
 
     const secret = process.env.JWT_SECRET + user.password;
-    const payload = { id: user._id, email: user.email };
-    const resetToken = jwt.sign(payload, secret, { expiresIn: "1h" });
+    const payload = { id: user._id, email: user.email }; 
+    const resetToken = jwt.sign(payload, secret, { expiresIn: "1h" }); 
 
     const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}&id=${user._id}`;
 
@@ -154,7 +155,7 @@ const forgotPassword = async (req, res) => {
     });
 
     const mailOptions = {
-      from: "no-reply@loop.com",
+      from: "info@loop.com",
       to: email,
       subject: "Şifre Sıfırlama Talebi",
       text: `Şifrenizi sıfırlamak için bu bağlantıya tıklayın: ${resetUrl}`,
@@ -168,6 +169,7 @@ const forgotPassword = async (req, res) => {
     res.status(500).json({ message: "Sunucu Hatası: " + error.message });
   }
 };
+
 const resetPassword = async (req, res) => {
   const { token, id, newPassword } = req.body;
 

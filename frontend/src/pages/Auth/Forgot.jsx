@@ -18,11 +18,7 @@ const Forgot = () => {
 
   const sendMailHandle = async (data) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5858/api/auth/forgot-password",
-        data
-      );
-      console.log(response.data);
+      await axios.post("http://localhost:5858/api/auth/forgot-password", data);
       toast.success("Şifre sıfırlama bağlantısı gönderildi.");
     } catch (error) {
       toast.error(error.response.data.message);
