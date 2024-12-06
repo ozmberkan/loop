@@ -35,9 +35,21 @@ const register = async (req, res) => {
       expiresIn: "1h",
     });
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 3600000,
+    });
+
     return res.status(201).json({
       status: "OK",
-      user: newUser,
+      user: {
+        _id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        role: newUser.role,
+      },
       token,
     });
   } catch (error) {
@@ -68,11 +80,50 @@ const login = async (req, res) => {
     expiresIn: "1h",
   });
 
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    maxAge: 3600000,
+  });
+
   return res.status(200).json({
     status: "OK",
-    user,
+    user: {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+    },
     token,
   });
 };
 
-module.exports = { register, login };
+const getUser = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Yetkisiz erişim!" });
+    }
+
+    const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
+
+    const user = await Auth.findById(decoded.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı" });
+    }
+
+    res.status(200).json({ user });
+  } catch (error) {
+    return res.status(500).json({ message: "Sunucu Hatası" + error });
+  }
+};
+
+const signOut = async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "Çıkış yapıldı" });
+};
+
+module.exports = { register, login, getUser, signOut };

@@ -9,9 +9,22 @@ import {
 import { AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { TbDoorExit, TbEditCircle } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import { logoutService } from "~/redux/slices/usersSlice";
+import toast from "react-hot-toast";
 
 const ProfileLink = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const exit = () => {
+    dispatch(logoutService());
+    toast.success("Çıkış Yapılıyor...");
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  };
 
   return (
     <div className="mt-auto border-t pt-3 w-full text-sm flex justify-between    items-center gap-x-2">
@@ -44,16 +57,19 @@ const ProfileLink = () => {
           >
             <PopoverPanel
               anchor="top end"
-              className="flex flex-col gap-2 bg-white w-[200px] border shadow-xl rounded-xl -mt-3 p-2"
+              className="flex flex-col gap-2 bg-white w-[200px] border shadow-xl rounded-md -mt-3 p-2"
             >
-              <Link className="hover:bg-primary/10 p-2 rounded-md text-sm flex items-center gap-x-3">
+              <Link className="hover:bg-primary/10 p-2 rounded text-sm flex items-center gap-x-3">
                 <TbEditCircle />
                 Profili Düzenle
               </Link>
-              <Link className="bg-red-200 p-2 rounded-md text-sm text-red-600 flex items-center gap-x-3">
+              <button
+                onClick={exit}
+                className="bg-red-200 outline-none p-2 rounded-md text-sm text-red-600 hover:bg-red-600 hover:text-white transition-colors duration-300 flex items-center gap-x-3"
+              >
                 <TbDoorExit />
                 Çıkış Yap
-              </Link>
+              </button>
             </PopoverPanel>
           </Transition>
         </Popover>

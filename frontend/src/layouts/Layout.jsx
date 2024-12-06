@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import Rightbar from "~/components/Rightbar/Rightbar";
 import Sidebar from "~/components/Sidebar/Sidebar";
@@ -11,6 +12,7 @@ const Layout = () => {
         <Outlet />
       </div>
       <Rightbar />
+      <Toaster />
     </Container>
   );
 };
