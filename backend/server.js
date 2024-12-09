@@ -18,6 +18,7 @@ app.use(
       "https://loop-tan.vercel.app",
       "https://www.loop-tan.vercel.app",
     ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
