@@ -11,7 +11,7 @@ export const createPost = createAsyncThunk(
   async (post, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "http://localhost:5858/api/post/createPost",
+        `${import.meta.env.VITE_MAIN_URL}/api/post/createPost`,
         post
       );
 
@@ -27,7 +27,9 @@ export const getAllPost = createAsyncThunk(
   "posts/getAllPost",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:5858/api/post/getAllPosts");
+      const res = await axios.get(
+        `${import.meta.env.VITE_MAIN_URL}/api/post/getAllPosts`
+      );
       return res.data;
     } catch (error) {
       console.log(error);

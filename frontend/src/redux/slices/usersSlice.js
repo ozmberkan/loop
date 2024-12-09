@@ -13,7 +13,7 @@ export const registerService = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5858/api/auth/register",
+        `${import.meta.env.VITE_MAIN_URL}/api/auth/register`,
         data,
         { withCredentials: true }
       );
@@ -29,7 +29,7 @@ export const loginService = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5858/api/auth/login",
+        `${import.meta.env.VITE_MAIN_URL}/api/auth/login`,
         data,
         { withCredentials: true }
       );
@@ -45,7 +45,7 @@ export const getUserService = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "http://localhost:5858/api/auth/getUser",
+        `${import.meta.env.VITE_MAIN_URL}/api/auth/getUser`,
         { withCredentials: true }
       );
 
@@ -61,7 +61,7 @@ export const getUserByIdService = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        `http://localhost:5858/api/auth/getUserById/${id}`
+        `${import.meta.env.VITE_MAIN_URL}/api/auth/getUserById/${id}`
       );
 
       return res.data.user;
@@ -76,7 +76,7 @@ export const logoutService = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "http://localhost:5858/api/auth/signout",
+        `${import.meta.env.VITE_MAIN_URL}/api/auth/signout`,
         { withCredentials: true }
       );
 
