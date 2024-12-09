@@ -33,6 +33,10 @@ const Register = () => {
       toast.error(error);
     }
   };
+
+
+
+  
   return (
     <div className="w-full flex justify-start items-start h-full">
       <div className="min-w-[30%] max-w-[30%] bg-login bg-cover h-full drop-shadow-2xl flex justify-center items-center"></div>

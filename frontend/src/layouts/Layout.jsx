@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <Container>
       <Sidebar />
-      <div className="flex-1 ml-64  overflow-y-auto">
+      <div className="flex-1 ml-72  overflow-y-auto">
         <Outlet />
       </div>
       <Rightbar />

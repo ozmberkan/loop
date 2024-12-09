@@ -97,6 +97,14 @@ export const regInputs = [
   },
   {
     id: 2,
+    label: "Adın Soyadın",
+    name: "displayName",
+    icon: FiUser,
+    type: "text",
+    placeholder: "Adınızı soyadınızı giriniz...",
+  },
+  {
+    id: 2,
     label: "E-Posta",
     name: "email",
     icon: FiMail,

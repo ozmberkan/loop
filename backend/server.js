@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db.js");
 const authRouter = require("./routes/auth.js");
+const postRouter = require("./routes/post.js");
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/post", postRouter);
 
 connectDB()
   .then(() => {

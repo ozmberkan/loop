@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 
 const register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, displayName } = req.body;
 
     const user = await Auth.findOne({
       $or: [{ username }, { email }],
@@ -30,6 +30,7 @@ const register = async (req, res) => {
     const newUser = await Auth.create({
       username,
       email,
+      displayName,
       password: hashedPassword,
     });
 
@@ -50,6 +51,7 @@ const register = async (req, res) => {
         _id: newUser._id,
         username: newUser.username,
         email: newUser.email,
+        displayName: newUser.displayName,
         role: newUser.role,
       },
       token,
@@ -141,8 +143,8 @@ const forgotPassword = async (req, res) => {
     }
 
     const secret = process.env.JWT_SECRET + user.password;
-    const payload = { id: user._id, email: user.email }; 
-    const resetToken = jwt.sign(payload, secret, { expiresIn: "1h" }); 
+    const payload = { id: user._id, email: user.email };
+    const resetToken = jwt.sign(payload, secret, { expiresIn: "1h" });
 
     const resetUrl = `http://localhost:5173/reset-password?token=${resetToken}&id=${user._id}`;
 

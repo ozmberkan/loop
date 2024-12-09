@@ -1,11 +1,20 @@
 import { AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Post from "~/components/Post/Post";
 import PostAddModal from "~/components/UI/Modals/PostAddModal";
+import { usePosts } from "~/hooks/usePosts";
+import { getAllPost } from "~/redux/slices/postsSlice";
 
 const Home = () => {
   const [postModal, setPostModal] = useState(false);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getAllPost());
+  });
+
+  const posts = usePosts();
   return (
     <>
       <AnimatePresence>
@@ -21,20 +30,9 @@ const Home = () => {
           </button>
         </div>
         <div className="grid grid-cols-2 gap-10">
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          {posts.map((post) => (
+            <Post post={post} />
+          ))}
         </div>
       </div>
     </>

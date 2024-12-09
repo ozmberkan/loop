@@ -2,16 +2,41 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { TbDoorExit, TbMoodSmile, TbPhoto } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
-
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useAccount } from "~/hooks/useAccount";
+
+import toast from "react-hot-toast";
+import noAvatar from "~/assets/noavatar.jpg";
+import { useDispatch } from "react-redux";
+import { createPost } from "~/redux/slices/postsSlice";
 
 const PostAddModal = ({ setPostModal }) => {
   const rootModal = document.getElementById("root-modal");
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
+  const user = useAccount();
+  const dispatch = useDispatch();
+
   const { register, handleSubmit } = useForm();
+
+  const createPostHandle = async (data) => {
+    try {
+      const formData = {
+        content: data?.content,
+        creatorId: user?._id,
+        creatorUsername: user?.username,
+        creatorImage: user?.photoURL ? user?.photoURL : "no-avatar",
+      };
+
+      dispatch(createPost(formData));
+      toast.success("Gönderi başarıyla oluşturuldu.");
+      setPostModal(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return createPortal(
     <motion.div
@@ -39,24 +64,25 @@ const PostAddModal = ({ setPostModal }) => {
         </div>
         <div className="flex items-center gap-x-3">
           <img
-            src="https://avatars.githubusercontent.com/u/148571945?v=4"
+            src={user?.photoURL ? user?.photoURL : noAvatar}
             className="w-10 h-10 rounded-md object-cover"
           />
           <div className="flex flex-col items-start justify-start">
-            <span className="font-semibold text-sm">@ozmberkan</span>
+            <span className="font-semibold text-sm">@{user?.username}</span>
           </div>
         </div>
-        <form>
+        <form onSubmit={handleSubmit(createPostHandle)}>
           <div className="mb-4">
             <textarea
+              {...register("content")}
               className="w-full border border-gray-300 rounded-lg p-2 outline-none max-h-44 min-h-44 ring-2 ring-offset-2 ring-neutral-400"
               placeholder="Ne düşünüyorsun?"
               rows="4"
               cols="7"
-            ></textarea>
+            />
           </div>
           <div className="flex justify-start items-center">
-            <div>
+            {/* <div>
               <label
                 htmlFor="file"
                 className="flex items-center gap-x-2 cursor-pointer transition-colors duration-300 py-2 px-3 rounded-md hover:bg-primary/10"
@@ -70,7 +96,7 @@ const PostAddModal = ({ setPostModal }) => {
                 className="hidden"
                 onChange={(e) => setSelectedPhoto(e.target.files)}
               />
-            </div>
+            </div> */}
             <span className="ml-2 text-xs">
               {selectedPhoto && selectedPhoto[0]?.name.split(".").slice(0, 1)}
             </span>

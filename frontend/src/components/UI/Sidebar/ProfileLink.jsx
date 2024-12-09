@@ -12,16 +12,20 @@ import { TbDoorExit, TbEditCircle } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { logoutService } from "~/redux/slices/usersSlice";
 import toast from "react-hot-toast";
+import { useAccount } from "~/hooks/useAccount";
+import noAvatar from "~/assets/noavatar.jpg";
 
 const ProfileLink = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const user = useAccount();
+
   const dispatch = useDispatch();
 
   const exit = () => {
-    dispatch(logoutService());
     toast.success("Çıkış Yapılıyor...");
     setTimeout(() => {
+      dispatch(logoutService());
       window.location.reload();
     }, 2000);
   };
@@ -30,12 +34,12 @@ const ProfileLink = () => {
     <div className="mt-auto border-t pt-3 w-full text-sm flex justify-between    items-center gap-x-2">
       <div className="flex items-center gap-x-3 relative">
         <img
-          src="https://avatars.githubusercontent.com/u/148571945?v=4"
-          className="w-10 h-10 rounded-md object-cover"
+          src={user?.photoURL ? user?.photoURL : noAvatar}
+          className="w-9 h-9 rounded-md object-cover"
         />
         <div className="flex flex-col items-start justify-start">
-          <span className="font-semibold">Berkan</span>
-          <span>ozmberkan</span>
+          <span className="font-semibold text-xs">{user?.displayName}</span>
+          <span>{user?.username}</span>
         </div>
       </div>
 
