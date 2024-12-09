@@ -13,7 +13,11 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://loop-tan.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://loop-tan.vercel.app",
+      "https://www.loop-tan.vercel.app",
+    ],
     credentials: true,
   })
 );
