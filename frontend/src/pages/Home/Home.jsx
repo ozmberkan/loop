@@ -21,7 +21,7 @@ const Home = () => {
         {postModal && <PostAddModal setPostModal={setPostModal} />}
       </AnimatePresence>
       <div className="w-full  p-5 overflow-auto ">
-        <div className="flex justify-end items-center w-full mb-3">
+        <div className="flex justify-start pb-3 border-b items-center w-full mb-3">
           <button
             onClick={() => setPostModal(true)}
             className="font-semibold bg-primary/10 px-4 py-1 rounded-full text-primary border border-primary"

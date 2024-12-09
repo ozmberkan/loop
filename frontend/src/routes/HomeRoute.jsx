@@ -6,6 +6,7 @@ import MyMessages from "~/pages/MyMessages/MyMessages";
 import MyNotifications from "~/pages/MyNotifications/MyNotifications";
 import MyAccount from "~/pages/MyAccount/MyAccount";
 import { roleLoader } from "~/loader/roleLoader";
+import Profile from "~/pages/Profile/Profile";
 
 export const HomeRoute = {
   path: "/",
@@ -39,6 +40,11 @@ export const HomeRoute = {
     {
       path: "/documents",
       element: <Documents />,
+      loader: () => roleLoader(["admin", "user"]),
+    },
+    {
+      path: "/profile/:id",
+      element: <Profile />,
       loader: () => roleLoader(["admin", "user"]),
     },
   ],

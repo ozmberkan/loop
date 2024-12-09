@@ -7,14 +7,14 @@ import dayjs from "dayjs";
 
 const Post = ({ post }) => {
   return (
-    <div className="w-full max-h-[700px] bg-white rounded-xl border shadow p-4 flex flex-col items-start justify-start gap-5">
+    <div className="w-full max-h-[700px] bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img
         src={post1}
         className="rounded-xl max-h-[400px] w-full object-cover shadow"
       />
       <div className="flex items-center  gap-x-1 justify-between w-full">
         <Link
-          to="/profile/ozmberkan"
+          to={`/profile/${post?.creatorId}`}
           className="flex gap-x-2 hover:bg-neutral-100 p-2 rounded-md "
         >
           <img

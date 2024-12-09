@@ -97,6 +97,7 @@ const login = async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      displayName: user.displayName,
       role: user.role,
     },
     token,
@@ -195,6 +196,20 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  try {
+    const user = await Auth.findById(req.params.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı" });
+    }
+
+    res.status(200).json({ user });
+  } catch (error) {
+    return res.status(500).json({ message: "Sunucu Hatası" + error });
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -202,4 +217,5 @@ module.exports = {
   signOut,
   forgotPassword,
   resetPassword,
+  getUserById,
 };

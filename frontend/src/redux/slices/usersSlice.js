@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   user: null,
+  currentUser: null,
   status: "idle",
   error: "",
 };
@@ -55,6 +56,21 @@ export const getUserService = createAsyncThunk(
   }
 );
 
+export const getUserByIdService = createAsyncThunk(
+  "user/getUserById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5858/api/auth/getUserById/${id}`
+      );
+
+      return res.data.user;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 export const logoutService = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
@@ -66,6 +82,7 @@ export const logoutService = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      console.log(error);
       return rejectWithValue(error.response.data.message);
     }
   }
@@ -127,6 +144,19 @@ export const usersSlice = createSlice({
       .addCase(logoutService.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.user = null;
+        state.error = null;
+      })
+      .addCase(getUserByIdService.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(getUserByIdService.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getUserByIdService.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.currentUser = action.payload;
         state.error = null;
       });
   },

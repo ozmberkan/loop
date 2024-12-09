@@ -48,7 +48,7 @@ const MyAccount = () => {
         </div>
       </div>
       <div className="w-full p-5 grid grid-cols-2 gap-5">
-        <Post />
+        Yapım Aşamasında...
       </div>
     </div>
   );
