@@ -2,13 +2,15 @@ const Post = require("../models/post.js");
 
 const createPost = async (req, res) => {
   try {
-    const { creatorId, creatorUsername, creatorImage, content } = req.body;
+    const { creatorId, creatorUsername, creatorImage, content, image } =
+      req.body;
 
     const newPost = await Post.create({
       creatorId,
       creatorUsername,
       creatorImage,
       content,
+      image,
     });
 
     return res.status(201).json(newPost);
@@ -26,4 +28,13 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts };
+const getMyPosts = async (req, res) => {
+  try {
+    const findPost = await Post.find({ creatorId: req.params.id });
+    return res.status(200).json(findPost);
+  } catch (error) {
+    return res.status(500).json({ message: "Sunucu Hatası" + error });
+  }
+};
+
+module.exports = { createPost, getAllPosts, getMyPosts };

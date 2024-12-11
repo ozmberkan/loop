@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TbEdit, TbEditCircle } from "react-icons/tb";
 import Post from "~/components/Post/Post";
 import { useAccount } from "~/hooks/useAccount";
 import noAvatar from "~/assets/noavatar.jpg";
 import noBanner from "~/assets/banner.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyPosts, resetPost } from "~/redux/slices/postsSlice";
 
 const MyAccount = () => {
   const user = useAccount();
+
+  const dispatch = useDispatch();
+
+  const { posts } = useSelector((state) => state.posts);
+
+  useEffect(() => {
+    dispatch(resetPost());
+    dispatch(getMyPosts(user._id));
+  }, [user._id]);
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -48,7 +59,9 @@ const MyAccount = () => {
         </div>
       </div>
       <div className="w-full p-5 grid grid-cols-2 gap-5">
-        Yapım Aşamasında...
+        {posts.map((post) => (
+          <Post key={post._id} post={post} />
+        ))}
       </div>
     </div>
   );

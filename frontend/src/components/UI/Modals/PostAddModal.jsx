@@ -15,6 +15,7 @@ const PostAddModal = ({ setPostModal }) => {
   const rootModal = document.getElementById("root-modal");
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const user = useAccount();
   const dispatch = useDispatch();
@@ -22,19 +23,43 @@ const PostAddModal = ({ setPostModal }) => {
   const { register, handleSubmit } = useForm();
 
   const createPostHandle = async (data) => {
+    setLoading(true);
     try {
-      const formData = {
+      const file = selectedPhoto[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", import.meta.env.VITE_UPLOAD_PRESET);
+      formData.append("cloud_name", import.meta.env.VITE_CLOUD_NAME);
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.VITE_CLOUD_NAME
+        }/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const uploadedImage = await res.json();
+
+      const formSendData = {
         content: data?.content,
         creatorId: user?._id,
         creatorUsername: user?.username,
         creatorImage: user?.photoURL ? user?.photoURL : "no-avatar",
+        image: uploadedImage.secure_url,
       };
 
-      dispatch(createPost(formData));
+      dispatch(createPost(formSendData));
       toast.success("Gönderi başarıyla oluşturuldu.");
       setPostModal(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,7 +107,7 @@ const PostAddModal = ({ setPostModal }) => {
             />
           </div>
           <div className="flex justify-start items-center">
-            {/* <div>
+            <div>
               <label
                 htmlFor="file"
                 className="flex items-center gap-x-2 cursor-pointer transition-colors duration-300 py-2 px-3 rounded-md hover:bg-primary/10"
@@ -96,15 +121,16 @@ const PostAddModal = ({ setPostModal }) => {
                 className="hidden"
                 onChange={(e) => setSelectedPhoto(e.target.files)}
               />
-            </div> */}
+            </div>
             <span className="ml-2 text-xs">
               {selectedPhoto && selectedPhoto[0]?.name.split(".").slice(0, 1)}
             </span>
             <button
+              disabled={loading}
               type="submit"
               className="bg-primary text-white px-4 py-2 rounded-lg ml-auto"
             >
-              Oluştur
+              {loading ? "Yükleniyor..." : "Gönder"}
             </button>
           </div>
         </form>

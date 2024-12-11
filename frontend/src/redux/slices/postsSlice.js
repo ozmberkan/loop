@@ -23,6 +23,21 @@ export const createPost = createAsyncThunk(
   }
 );
 
+export const getMyPosts = createAsyncThunk(
+  "posts/getMyPosts",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_MAIN_URL}/api/post/getMyPosts/${userId}`
+      );
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const getAllPost = createAsyncThunk(
   "posts/getAllPost",
   async (_, { rejectWithValue }) => {
@@ -41,7 +56,11 @@ export const getAllPost = createAsyncThunk(
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    resetPost: (state) => {
+      state.posts = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createPost.pending, (state) => {
@@ -63,10 +82,20 @@ export const postsSlice = createSlice({
       })
       .addCase(getAllPost.rejected, (state) => {
         state.status = "failed";
+      })
+      .addCase(getMyPosts.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getMyPosts.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.posts = action.payload;
+      })
+      .addCase(getMyPosts.rejected, (state) => {
+        state.status = "failed";
       });
   },
 });
 
-export const {} = postsSlice.actions;
+export const { resetPost } = postsSlice.actions;
 
 export default postsSlice.reducer;

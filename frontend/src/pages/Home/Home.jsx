@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllPost());
-  });
+  }, []);
 
   const posts = usePosts();
   return (

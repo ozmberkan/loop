@@ -1,7 +1,6 @@
 import React from "react";
 import { TbHeart, TbMessage } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import post1 from "~/assets/post4.jpg";
 import noAvatar from "~/assets/noavatar.jpg";
 import dayjs from "dayjs";
 
@@ -9,7 +8,7 @@ const Post = ({ post }) => {
   return (
     <div className="w-full max-h-[700px] bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img
-        src={post1}
+        src={post.image}
         className="rounded-xl max-h-[400px] w-full object-cover shadow"
       />
       <div className="flex items-center  gap-x-1 justify-between w-full">
