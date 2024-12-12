@@ -57,6 +57,20 @@ export const getUserService = createAsyncThunk(
 );
 
 export const getUserByIdService = createAsyncThunk(
+  "user/getUserByIdService",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_MAIN_URL}/api/auth/getUserById/${id}`
+      );
+
+      return res.data.user;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+export const getUserById = createAsyncThunk(
   "user/getUserById",
   async (id, { rejectWithValue }) => {
     try {
@@ -84,6 +98,25 @@ export const logoutService = createAsyncThunk(
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async ({ data, user }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_MAIN_URL}/api/auth/updateUser/${user._id}`,
+        data,
+        { withCredentials: true }
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Bilinmeyen bir hata oluştu"
+      );
     }
   }
 );
@@ -161,6 +194,32 @@ export const usersSlice = createSlice({
       .addCase(getUserByIdService.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.currentUser = action.payload;
+        state.error = null;
+      })
+      .addCase(getUserById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(getUserById.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getUserById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload.user;
         state.error = null;
       });
   },

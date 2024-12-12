@@ -209,6 +209,30 @@ const getUserById = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    if (!updateData || !id) {
+      return res.status(400).json({ message: "Eksik veri gönderildi." });
+    }
+
+    const user = await Auth.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    }).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı." });
+    }
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    return res.status(500).json({ message: "Sunucu Hatası: " + error.message });
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -217,4 +241,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   getUserById,
+  updateUser,
 };

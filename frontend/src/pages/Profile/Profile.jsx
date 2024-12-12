@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getUserByIdService, resetUser } from "~/redux/slices/usersSlice";
+import {
+  getUserById,
+  getUserByIdService,
+  resetUser,
+  updateUser,
+} from "~/redux/slices/usersSlice";
 import noAvatar from "~/assets/noavatar.jpg";
 import noBanner from "~/assets/banner.jpg";
 import { TbEditCircle } from "react-icons/tb";
 import Post from "~/components/Post/Post";
 import { useAccount } from "~/hooks/useAccount";
 import { ring } from "ldrs";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const { id } = useParams();
@@ -19,12 +26,58 @@ const Profile = () => {
 
   const dispatch = useDispatch();
 
-  const [validUser, setValidUser] = useState(currentUser?._id !== user?._id);
+  const validUser = currentUser?._id !== user?._id;
+
+  const include = user?.following?.includes(currentUser?._id);
+
+  const isMe = validUser ? false : true;
 
   useEffect(() => {
     dispatch(resetUser());
     dispatch(getUserByIdService(id));
   }, []);
+
+  const followUser = async (currentUser) => {
+    if (include) {
+      axios.put(
+        `http://localhost:5858/api/auth/updateUser/${user._id}`,
+        { following: user.following.filter((f) => f !== currentUser._id) },
+        { withCredentials: true }
+      );
+
+      axios.put(
+        `http://localhost:5858/api/auth/updateUser/${currentUser._id}`,
+        { followers: currentUser.followers.filter((f) => f !== user._id) },
+        { withCredentials: true }
+      );
+
+      dispatch(getUserByIdService(currentUser._id));
+      dispatch(getUserById(user._id));
+
+      toast.success(`Başarıyla @${currentUser.username} takipten çıkarıldı.`);
+      return;
+    }
+
+    try {
+      await axios.put(
+        `http://localhost:5858/api/auth/updateUser/${user._id}`,
+        { following: [...user.following, currentUser._id] },
+        { withCredentials: true }
+      );
+
+      await axios.put(
+        `http://localhost:5858/api/auth/updateUser/${currentUser._id}`,
+        { followers: [...currentUser.followers, user._id] },
+        { withCredentials: true }
+      );
+      toast.success(`@${currentUser.username} başarıyla takip edildi.`);
+
+      dispatch(getUserByIdService(currentUser._id));
+      dispatch(getUserById(user._id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (status === "loading") {
     return (
@@ -49,9 +102,12 @@ const Profile = () => {
           src={currentUser?.photoURL ? currentUser?.photoURL : noAvatar}
           className="w-[200px] h-[200px] rounded-full object-contain absolute right-6 transform -translate-x-1/2 bottom-0 translate-y-1/2 border-white border-[7px]"
         />
-        {!validUser && (
-          <button className="px-4 py-1 rounded-full bg-primary shadow-xl text-white absolute top-3 left-3">
-            Takip et
+        {!isMe && (
+          <button
+            onClick={() => followUser(currentUser)}
+            className="px-4 py-1 rounded-full bg-primary shadow-xl text-white absolute top-3 left-3"
+          >
+            {include ? "Takipten Çık" : "Takip Et"}
           </button>
         )}
       </div>

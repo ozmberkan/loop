@@ -5,6 +5,7 @@ import noAvatar from "~/assets/noavatar.jpg";
 import dayjs from "dayjs";
 
 const Post = ({ post }) => {
+  
   return (
     <div className="w-full max-h-[700px] bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img

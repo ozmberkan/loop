@@ -7,7 +7,7 @@ import noBanner from "~/assets/banner.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyPosts, resetPost } from "~/redux/slices/postsSlice";
 import { ring } from "ldrs";
-import { resetUser } from "~/redux/slices/usersSlice";
+import { getUserById, resetUser } from "~/redux/slices/usersSlice";
 import { Link } from "react-router-dom";
 const MyAccount = () => {
   const user = useAccount();
@@ -21,6 +21,7 @@ const MyAccount = () => {
     dispatch(resetPost());
     dispatch(resetUser());
     dispatch(getMyPosts(user._id));
+    dispatch(getUserById(user._id));
   }, [user._id]);
 
   if (status === "loading" || userStatus === "loading") {
@@ -44,7 +45,7 @@ const MyAccount = () => {
         {/* Profil resmi */}
         <img
           src={user?.photoURL ? user?.photoURL : noAvatar}
-          className="w-[200px] h-[200px] rounded-full object-contain absolute right-6 transform -translate-x-1/2 bottom-0 translate-y-1/2 border-white border-[7px]"
+          className="w-[200px] h-[200px] rounded-full object-cover absolute right-6 transform -translate-x-1/2 bottom-0 translate-y-1/2 border-white border-[7px]"
         />
         <Link
           to="/edit-account"
