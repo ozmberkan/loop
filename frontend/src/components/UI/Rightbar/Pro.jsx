@@ -11,7 +11,10 @@ const Pro = () => {
         </p>
       </div>
       <div className="mt-2">
-        <Link className="bg-primary text-white  text-sm font-semibold px-4 py-2 rounded-xl ">
+        <Link
+          to="upgrade-to-pro"
+          className="bg-primary text-white  text-sm font-semibold px-4 py-2 rounded-xl "
+        >
           Detay
         </Link>
       </div>

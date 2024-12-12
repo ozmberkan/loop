@@ -20,6 +20,13 @@ const Rightbar = () => {
         </div>
       </form>
       <Pro />
+      <div
+        className="h-full bg-red-500 w-full rounded-md bg-cover bg-center bg-no-repeat border shadow-md"
+        style={{
+          backgroundImage:
+            "url('https://markamutfagi.co/wp-content/uploads/2021/01/google-ads-v1-1280x720-1.jpg')",
+        }}
+      ></div>
       <div className="mt-auto w-full">
         <Link className="w-full px-4 py-2 text-sm flex gap-x-2 rounded-md bg-zinc-50 font-semibold text-neutral-500 border hover:bg-zinc-100 justify-between items-center">
           Daha fazlası için tıklayın

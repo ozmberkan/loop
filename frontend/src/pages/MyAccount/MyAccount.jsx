@@ -45,14 +45,8 @@ const MyAccount = () => {
         {/* Profil resmi */}
         <img
           src={user?.photoURL ? user?.photoURL : noAvatar}
-          className="w-[200px] h-[200px] rounded-full object-cover absolute right-6 transform -translate-x-1/2 bottom-0 translate-y-1/2 border-white border-[7px]"
+          className="w-[200px]  h-[200px] rounded-full object-cover absolute right-6 transform -translate-x-1/2 bottom-0 translate-y-1/2 border-white border-[7px]"
         />
-        <Link
-          to="/edit-account"
-          className="p-3 rounded-full bg-primary shadow-xl text-white absolute top-3 left-3"
-        >
-          <TbEditCircle size={20} />
-        </Link>
       </div>
       <div className="w-full  h-[200px] flex items-start justify-start flex-col p-4 border-b">
         <div className="flex flex-col gap-5">
