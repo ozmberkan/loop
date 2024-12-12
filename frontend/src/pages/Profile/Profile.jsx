@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getUserByIdService } from "~/redux/slices/usersSlice";
+import { getUserByIdService, resetUser } from "~/redux/slices/usersSlice";
 import noAvatar from "~/assets/noavatar.jpg";
 import noBanner from "~/assets/banner.jpg";
 import { TbEditCircle } from "react-icons/tb";
 import Post from "~/components/Post/Post";
 import { useAccount } from "~/hooks/useAccount";
+import { ring } from "ldrs";
 
 const Profile = () => {
   const { id } = useParams();
+  ring.register();
 
   const user = useAccount();
 
-  const { currentUser } = useSelector((state) => state.users);
+  const { currentUser, status } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
 
   const [validUser, setValidUser] = useState(currentUser?._id !== user?._id);
 
   useEffect(() => {
+    dispatch(resetUser());
     dispatch(getUserByIdService(id));
   }, []);
+
+  if (status === "loading") {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <l-ring size="40" stroke="5" bg-opacity="0" speed="2" color="black" />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex flex-col">

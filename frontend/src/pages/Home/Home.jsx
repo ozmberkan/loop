@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
+import { ring } from "ldrs";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Post from "~/components/Post/Post";
 import PostAddModal from "~/components/UI/Modals/PostAddModal";
 import { usePosts } from "~/hooks/usePosts";
@@ -9,12 +10,23 @@ import { getAllPost } from "~/redux/slices/postsSlice";
 const Home = () => {
   const [postModal, setPostModal] = useState(false);
   const dispatch = useDispatch();
-
+  ring.register();
   useEffect(() => {
     dispatch(getAllPost());
   }, []);
 
   const posts = usePosts();
+
+  const { status } = useSelector((state) => state.posts);
+
+  if (status === "loading") {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <l-ring size="40" stroke="5" bg-opacity="0" speed="2" color="black" />
+      </div>
+    );
+  }
+
   return (
     <>
       <AnimatePresence>

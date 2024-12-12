@@ -91,7 +91,11 @@ export const logoutService = createAsyncThunk(
 export const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUser: (state) => {
+      state.currentUser = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerService.rejected, (state, action) => {
@@ -162,6 +166,6 @@ export const usersSlice = createSlice({
   },
 });
 
-export const {} = usersSlice.actions;
+export const { resetUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

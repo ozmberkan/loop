@@ -63,7 +63,10 @@ const ProfileLink = () => {
               anchor="top end"
               className="flex flex-col gap-2 bg-white w-[200px] border shadow-xl rounded-md -mt-3 p-2"
             >
-              <Link className="hover:bg-primary/10 p-2 rounded text-sm flex items-center gap-x-3">
+              <Link
+                to="/edit-account"
+                className="hover:bg-primary/10 p-2 rounded text-sm flex items-center gap-x-3"
+              >
                 <TbEditCircle />
                 Profili Düzenle
               </Link>

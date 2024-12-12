@@ -7,6 +7,7 @@ import MyNotifications from "~/pages/MyNotifications/MyNotifications";
 import MyAccount from "~/pages/MyAccount/MyAccount";
 import { roleLoader } from "~/loader/roleLoader";
 import Profile from "~/pages/Profile/Profile";
+import EditAccount from "~/pages/EditAccount/EditAccount";
 
 export const HomeRoute = {
   path: "/",
@@ -35,6 +36,11 @@ export const HomeRoute = {
     {
       path: "/upgrade-to-pro",
       element: <BePro />,
+      loader: () => roleLoader(["admin", "user"]),
+    },
+    {
+      path: "/edit-account",
+      element: <EditAccount />,
       loader: () => roleLoader(["admin", "user"]),
     },
     {
