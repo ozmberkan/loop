@@ -14,15 +14,11 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: [
-      "http://localhost:5173",
-      "https://loop-tan.vercel.app",
-      "https://www.loop-tan.vercel.app",
-      "https://www.loop-be.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    origin: "https://loop-be.vercel.app/", // Buraya tam Vercel URL'sini ekleyin
+    methods: ["GET", "POST"],
+    credentials: true, // Eğer credentials kullanmıyorsanız, bunu false yapın
   },
+  transports: ["websocket", "polling"],
 });
 
 app.set("io", io);
