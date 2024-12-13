@@ -8,11 +8,13 @@ import UserBannerModal from "~/components/UI/Modals/UserBannerModal";
 import { AnimatePresence } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { getUserById } from "~/redux/slices/usersSlice";
+import UserEditModal from "~/components/UI/Modals/UserEditModal";
 
 const EditAccount = () => {
   const user = useAccount();
   const [editPhoto, setEditPhoto] = useState(false);
   const [editBanner, setEditBanner] = useState(false);
+  const [editUser, setEditUser] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   const dispatch = useDispatch();
@@ -27,6 +29,11 @@ const EditAccount = () => {
       {editBanner && (
         <AnimatePresence>
           <UserBannerModal setEditBanner={setEditBanner} />
+        </AnimatePresence>
+      )}
+      {editUser && (
+        <AnimatePresence>
+          <UserEditModal setEditUser={setEditUser} />
         </AnimatePresence>
       )}
       <div className="w-full h-full flex flex-col">
@@ -66,7 +73,10 @@ const EditAccount = () => {
               )}
             </div>
           </div>
-          <button className="px-4 py-1 rounded-md bg-primary shadow-xl text-white absolute top-3 left-3">
+          <button
+            onClick={() => setEditUser(true)}
+            className="px-4 py-1 rounded-md bg-primary shadow-xl text-white absolute top-3 left-3"
+          >
             Profilini düzenlemek için tıkla
           </button>
         </div>
