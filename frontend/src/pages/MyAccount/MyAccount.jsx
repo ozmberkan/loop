@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { TbEdit, TbEditCircle } from "react-icons/tb";
-import Post from "~/components/Post/Post";
 import { useAccount } from "~/hooks/useAccount";
 import noAvatar from "~/assets/noavatar.jpg";
 import noBanner from "~/assets/banner.jpg";
@@ -8,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMyPosts, resetPost } from "~/redux/slices/postsSlice";
 import { ring } from "ldrs";
 import { getUserById, resetUser } from "~/redux/slices/usersSlice";
-import { Link } from "react-router-dom";
+import MyPost from "~/components/Post/MyPost";
+
 const MyAccount = () => {
   const user = useAccount();
   ring.register();
@@ -70,7 +69,7 @@ const MyAccount = () => {
       </div>
       <div className="w-full p-5 grid grid-cols-2 gap-5">
         {posts.map((post) => (
-          <Post key={post._id} post={post} />
+          <MyPost key={post._id} post={post} />
         ))}
       </div>
     </div>

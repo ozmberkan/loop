@@ -41,7 +41,7 @@ const register = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "None",
-      maxAge: 3600000,
+      maxAge: 36000000,
     });
 
     return res.status(201).json({
@@ -87,7 +87,7 @@ const login = async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "None",
-    maxAge: 3600000,
+    maxAge: 36000000,
   });
 
   return res.status(200).json({

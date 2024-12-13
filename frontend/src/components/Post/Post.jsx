@@ -3,9 +3,12 @@ import { TbHeart, TbMessage } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import noAvatar from "~/assets/noavatar.jpg";
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/tr";
 
 const Post = ({ post }) => {
-  
+  dayjs.extend(relativeTime);
+  dayjs.locale("tr");
   return (
     <div className="w-full max-h-[700px] bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img
@@ -29,7 +32,7 @@ const Post = ({ post }) => {
           </div>
         </Link>
         <span className="text-xs text-neutral-400">
-          {dayjs(post?.createdAt).format("DD.MM.YYYY HH:mm")}
+          {dayjs(post?.createdAt).fromNow()}
         </span>
       </div>
       <div className="flex items-start justify-start">{post?.content}</div>

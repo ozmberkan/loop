@@ -37,4 +37,13 @@ const getMyPosts = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts, getMyPosts };
+const deletePost = async (req, res) => {
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+    return res.status(200).json({ message: "Post silindi." });
+  } catch (error) {
+    return res.status(500).json({ message: "Sunucu Hatası" + error });
+  }
+};
+
+module.exports = { createPost, getAllPosts, getMyPosts, deletePost };
