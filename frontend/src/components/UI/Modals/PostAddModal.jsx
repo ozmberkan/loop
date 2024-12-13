@@ -112,7 +112,7 @@ const PostAddModal = ({ setPostModal }) => {
             <div>
               <label
                 htmlFor="file"
-                className="flex items-center gap-x-2 cursor-pointer transition-colors duration-300 py-2 px-3 rounded-md hover:bg-primary/10"
+                className="flex items-center border gap-x-2 cursor-pointer transition-colors duration-300 py-2 px-3 rounded-md hover:bg-primary/10"
               >
                 <TbPhoto />
               </label>

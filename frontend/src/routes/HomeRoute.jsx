@@ -8,6 +8,7 @@ import MyAccount from "~/pages/MyAccount/MyAccount";
 import { roleLoader } from "~/loader/roleLoader";
 import Profile from "~/pages/Profile/Profile";
 import EditAccount from "~/pages/EditAccount/EditAccount";
+import Detail from "~/pages/Detail/Detail";
 
 export const HomeRoute = {
   path: "/",
@@ -51,6 +52,11 @@ export const HomeRoute = {
     {
       path: "/profile/:id",
       element: <Profile />,
+      loader: () => roleLoader(["admin", "user"]),
+    },
+    {
+      path: "/post/:id",
+      element: <Detail />,
       loader: () => roleLoader(["admin", "user"]),
     },
   ],

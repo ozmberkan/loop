@@ -46,7 +46,7 @@ const Post = ({ post }) => {
   const isVerified = user.premium === true;
 
   return (
-    <div className="w-full max-h-[700px] bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
+    <div className="w-full max-h-[700px] border bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img
         src={post.image}
         className="rounded-xl max-h-[400px] min-h-[400px] w-full object-cover shadow"
@@ -76,9 +76,12 @@ const Post = ({ post }) => {
       </div>
       <div className="flex items-start justify-start">{post?.content}</div>
       <div className="w-full flex justify-start items-center gap-x-2 py-1 ">
-        <button className="p-2 hover:bg-primary/20 rounded-full">
+        <Link
+          to={`/post/${post._id}`}
+          className="p-2 hover:bg-primary/20 rounded-full"
+        >
           <TbMessage size={20} className="text-primary" />
-        </button>
+        </Link>
         <span className="text-xs text-neutral-600">
           {post?.comments?.length}
         </span>

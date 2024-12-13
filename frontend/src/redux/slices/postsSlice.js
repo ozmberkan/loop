@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   posts: [],
+  currentPost: null,
   status: "idle",
 };
 
@@ -53,6 +54,21 @@ export const getAllPost = createAsyncThunk(
   }
 );
 
+export const getPost = createAsyncThunk(
+  "posts/getPost",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_MAIN_URL}/api/post/getPost/${postId}`
+      );
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -91,6 +107,16 @@ export const postsSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(getMyPosts.rejected, (state) => {
+        state.status = "failed";
+      })
+      .addCase(getPost.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getPost.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.currentPost = action.payload;
+      })
+      .addCase(getPost.rejected, (state) => {
         state.status = "failed";
       });
   },

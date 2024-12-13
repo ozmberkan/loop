@@ -85,10 +85,66 @@ const likePost = async (req, res) => {
   }
 };
 
+const commentPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post bulunamadı." });
+    }
+
+    const { comment, creatorId, creatorName, creatorUsername, creatorImage } =
+      req.body;
+
+    if (!comment || !creatorId) {
+      return res
+        .status(400)
+        .json({ message: "Eksik veya hatalı veri gönderildi." });
+    }
+
+    const newComment = {
+      comment,
+      creatorId,
+      creatorName,
+      creatorUsername,
+      creatorImage,
+      createdAt: new Date(),
+    };
+
+    post.comments.push(newComment);
+
+    await post.save();
+
+    const io = req.app.get("io");
+    io.emit("commentUpdated", { postId: id, comments: post.comments });
+
+    return res.status(201).json({
+      message: "Yorum eklendi.",
+      comments: post.comments,
+    });
+  } catch (error) {
+    console.error("Error:", error.message);
+    return res.status(500).json({ message: "Sunucu Hatası" });
+  }
+};
+
+const getPostById = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: "Sunucu Hatası" + error });
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getMyPosts,
   deletePost,
   likePost,
+  getPostById,
+  commentPost,
 };

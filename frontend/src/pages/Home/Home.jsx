@@ -38,10 +38,10 @@ const Home = () => {
         {postModal && <PostAddModal setPostModal={setPostModal} />}
       </AnimatePresence>
       <div className="w-full  p-5 overflow-auto ">
-        <div className="flex justify-start pb-3 border-b items-center w-full mb-3">
+        <div className="flex justify-start pb-3 mb-3 items-center w-full ">
           <button
             onClick={() => setPostModal(true)}
-            className="font-semibold bg-primary/10 px-4 py-1 rounded-full text-primary border border-primary"
+            className="font-semibold bg-primary/10 px-4 py-1 rounded-full hover:bg-primary hover:text-white transition-colors duration-300 text-primary border border-primary"
           >
             Gönderi Oluştur
           </button>
