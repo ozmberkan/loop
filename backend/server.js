@@ -18,6 +18,7 @@ const io = new Server(httpServer, {
       "http://localhost:5173",
       "https://loop-tan.vercel.app",
       "https://www.loop-tan.vercel.app",
+      "https://www.loop-be.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
