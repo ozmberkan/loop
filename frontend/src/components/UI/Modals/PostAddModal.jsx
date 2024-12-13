@@ -49,6 +49,7 @@ const PostAddModal = ({ setPostModal }) => {
         content: data?.content,
         creatorId: user?._id,
         creatorUsername: user?.username,
+        creatorName: user?.displayName,
         creatorImage: user?.photoURL ? user?.photoURL : "no-avatar",
         image: uploadedImage.secure_url,
       };
@@ -93,7 +94,8 @@ const PostAddModal = ({ setPostModal }) => {
             className="w-10 h-10 rounded-md object-cover"
           />
           <div className="flex flex-col items-start justify-start">
-            <span className="font-semibold text-sm">@{user?.username}</span>
+            <span className="font-medium text-sm">{user?.displayName}</span>
+            <span className="text-neutral-500 text-sm">@{user?.username}</span>
           </div>
         </div>
         <form onSubmit={handleSubmit(createPostHandle)}>

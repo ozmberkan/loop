@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TbHeart, TbMessage } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import noAvatar from "~/assets/noavatar.jpg";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import "dayjs/locale/tr";
 import { useAccount } from "~/hooks/useAccount";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { getAllPost } from "~/redux/slices/postsSlice";
+import socket from "~/utils/socket";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/tr";
+import { MdVerified } from "react-icons/md";
 
 const Post = ({ post }) => {
   dayjs.extend(relativeTime);
@@ -16,9 +16,21 @@ const Post = ({ post }) => {
 
   const user = useAccount();
 
-  const isLiked = post?.likes.includes(user._id);
+  const [likes, setLikes] = useState(post?.likes || []);
 
-  const dispatch = useDispatch();
+  const isLiked = likes.includes(user._id);
+
+  useEffect(() => {
+    socket.on("likeUpdated", (data) => {
+      if (data.postId === post._id) {
+        setLikes(data.likes);
+      }
+    });
+
+    return () => {
+      socket.off("likeUpdated");
+    };
+  }, [post._id]);
 
   const likePostHandle = async () => {
     try {
@@ -26,17 +38,18 @@ const Post = ({ post }) => {
         `${import.meta.env.VITE_MAIN_URL}/api/post/likePost/${post._id}`,
         { userId: user._id }
       );
-      dispatch(getAllPost());
     } catch (err) {
       console.error("Hata oluştu:", err);
     }
   };
 
+  const isVerified = user.premium === true;
+
   return (
     <div className="w-full max-h-[700px] bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img
         src={post.image}
-        className="rounded-xl max-h-[400px] w-full object-cover shadow"
+        className="rounded-xl max-h-[400px] min-h-[400px] w-full object-cover shadow"
       />
       <div className="flex items-center  gap-x-1 justify-between w-full">
         <Link
@@ -50,7 +63,10 @@ const Post = ({ post }) => {
             className="w-10 h-10 rounded-md object-cover"
           />
           <div className="flex flex-col items-start justify-start -space-y-1">
-            <h1 className="font-semibold">{post?.creatorUsername}</h1>
+            <h1 className="font-semibold flex items-center gap-x-2">
+              {post?.creatorName}{" "}
+              {isVerified && <MdVerified className="fill-primary" />}
+            </h1>
             <span className="text-xs">@{post?.creatorUsername}</span>
           </div>
         </Link>
@@ -75,7 +91,7 @@ const Post = ({ post }) => {
             className={`text-primary ${isLiked && "fill-primary"} `}
           />
         </button>
-        <span className="text-xs text-neutral-600">{post?.likes?.length}</span>
+        <span className="text-xs text-neutral-600">{likes.length}</span>
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ const MyPost = ({ post }) => {
     <div className="w-full max-h-[700px] bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img
         src={post.image}
-        className="rounded-xl max-h-[400px] w-full object-cover shadow"
+        className="rounded-xl max-h-[400px] min-h-[400px] w-full object-cover shadow"
       />
       <div className="flex items-center  gap-x-1 justify-between w-full">
         <Link

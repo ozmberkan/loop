@@ -7,6 +7,7 @@ import { getMyPosts, resetPost } from "~/redux/slices/postsSlice";
 import { ring } from "ldrs";
 import { getUserById, resetUser } from "~/redux/slices/usersSlice";
 import MyPost from "~/components/Post/MyPost";
+import { MdVerified } from "react-icons/md";
 
 const MyAccount = () => {
   const user = useAccount();
@@ -50,7 +51,10 @@ const MyAccount = () => {
       <div className="w-full  h-[200px] flex items-start justify-start flex-col p-4 border-b">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col">
-            <h1 className="text-2xl font-semibold">{user?.displayName}</h1>
+            <h1 className="text-2xl font-semibold flex items-center gap-x-2">
+              {user?.displayName}
+              {user?.premium && <MdVerified className="fill-primary" />}
+            </h1>
             <span className="text-xs text-neutral-400">@{user?.username}</span>
           </div>
           <p className="text-sm w-[700px]">

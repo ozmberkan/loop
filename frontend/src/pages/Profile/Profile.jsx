@@ -15,6 +15,9 @@ import { useAccount } from "~/hooks/useAccount";
 import { ring } from "ldrs";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { MdVerified } from "react-icons/md";
+
+import { Tooltip } from "react-tooltip";
 
 const Profile = () => {
   const { id } = useParams();
@@ -100,7 +103,7 @@ const Profile = () => {
         {/* Profil resmi */}
         <img
           src={currentUser?.photoURL ? currentUser?.photoURL : noAvatar}
-          className="w-[200px] h-[200px] rounded-full object-contain absolute right-6 transform -translate-x-1/2 bottom-0 translate-y-1/2 border-white border-[7px]"
+          className="w-[200px] h-[200px] rounded-full object-cover absolute right-6 transform -translate-x-1/2 bottom-0 translate-y-1/2 border-white border-[7px]"
         />
         {!isMe && (
           <button
@@ -111,11 +114,20 @@ const Profile = () => {
           </button>
         )}
       </div>
+      <Tooltip id="my-tooltip" />
+
       <div className="w-full  h-[200px] flex items-start justify-start flex-col p-4 border-b">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col">
-            <h1 className="text-2xl font-semibold">
+            <h1 className="text-2xl font-semibold flex items-center gap-x-2">
               {currentUser?.displayName}
+              {currentUser?.premium && (
+                <MdVerified
+                  className="fill-primary"
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Pro özelliklerine sahip!"
+                />
+              )}
             </h1>
             <span className="text-xs text-neutral-400">
               @{currentUser?.username}

@@ -2,13 +2,20 @@ const Post = require("../models/post.js");
 
 const createPost = async (req, res) => {
   try {
-    const { creatorId, creatorUsername, creatorImage, content, image } =
-      req.body;
+    const {
+      creatorId,
+      creatorUsername,
+      creatorName,
+      creatorImage,
+      content,
+      image,
+    } = req.body;
 
     const newPost = await Post.create({
       creatorId,
       creatorUsername,
       creatorImage,
+      creatorName,
       content,
       image,
     });
@@ -64,6 +71,9 @@ const likePost = async (req, res) => {
     }
 
     await post.save();
+
+    const io = req.app.get("io");
+    io.emit("likeUpdated", { postId: id, likes: post.likes });
 
     return res.status(200).json({
       message: "Like işlemi başarıyla tamamlandı.",

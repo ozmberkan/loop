@@ -43,6 +43,10 @@ const Auth = new mongoose.Schema({
     type: Array,
     default: [],
   },
+  premium: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Auth", Auth);

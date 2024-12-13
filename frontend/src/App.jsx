@@ -2,9 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomeRoute } from "./routes/HomeRoute";
 import { AuthRoute } from "./routes/AuthRoute";
 import "driver.js/dist/driver.css";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getUserService } from "./redux/slices/usersSlice";
+import "react-tooltip/dist/react-tooltip.css";
 
 const App = () => {
   // const dispatch = useDispatch();

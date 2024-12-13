@@ -48,7 +48,7 @@ const Home = () => {
         </div>
         <div className="grid grid-cols-2 gap-10">
           {posts.length > 0 ? (
-            posts.map((post) => <Post post={post} />)
+            posts.map((post) => <Post key={post._id} post={post} />)
           ) : (
             <div className="grid-cols-2 bg-primary/20 text-primary border-primary px-4 py-2 rounded-lg border">
               Herhangi bir gönderi bulunamadı!
