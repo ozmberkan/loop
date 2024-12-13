@@ -46,4 +46,39 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts, getMyPosts, deletePost };
+const likePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req.body;
+
+    const post = await Post.findById(id);
+    if (!post) {
+      console.log("Post veritabanında bulunamadı.");
+      return res.status(404).json({ message: "Post bulunamadı." });
+    }
+
+    if (post.likes.includes(userId)) {
+      post.likes = post.likes.filter((id) => id !== userId);
+    } else {
+      post.likes.push(userId);
+    }
+
+    await post.save();
+
+    return res.status(200).json({
+      message: "Like işlemi başarıyla tamamlandı.",
+      likes: post.likes,
+    });
+  } catch (err) {
+    console.error("Sunucu hatası:", err);
+    return res.status(500).json({ message: "Sunucu hatası", error: err });
+  }
+};
+
+module.exports = {
+  createPost,
+  getAllPosts,
+  getMyPosts,
+  deletePost,
+  likePost,
+};

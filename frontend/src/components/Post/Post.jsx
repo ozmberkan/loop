@@ -5,10 +5,33 @@ import noAvatar from "~/assets/noavatar.jpg";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/tr";
+import { useAccount } from "~/hooks/useAccount";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getAllPost } from "~/redux/slices/postsSlice";
 
 const Post = ({ post }) => {
   dayjs.extend(relativeTime);
   dayjs.locale("tr");
+
+  const user = useAccount();
+
+  const isLiked = post?.likes.includes(user._id);
+
+  const dispatch = useDispatch();
+
+  const likePostHandle = async () => {
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_MAIN_URL}/api/post/likePost/${post._id}`,
+        { userId: user._id }
+      );
+      dispatch(getAllPost());
+    } catch (err) {
+      console.error("Hata oluştu:", err);
+    }
+  };
+
   return (
     <div className="w-full max-h-[700px] bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img
@@ -43,8 +66,14 @@ const Post = ({ post }) => {
         <span className="text-xs text-neutral-600">
           {post?.comments?.length}
         </span>
-        <button className="p-2 hover:bg-primary/20 rounded-full  ">
-          <TbHeart size={20} className="text-primary" />
+        <button
+          onClick={likePostHandle}
+          className="p-2 hover:bg-primary/20 rounded-full "
+        >
+          <TbHeart
+            size={20}
+            className={`text-primary ${isLiked && "fill-primary"} `}
+          />
         </button>
         <span className="text-xs text-neutral-600">{post?.likes?.length}</span>
       </div>
