@@ -9,6 +9,7 @@ import {
 } from "~/redux/slices/usersSlice";
 import noAvatar from "~/assets/noavatar.jpg";
 import noBanner from "~/assets/banner.jpg";
+import logo from "~/assets/admin.svg";
 import { TbEditCircle } from "react-icons/tb";
 import Post from "~/components/Post/Post";
 import { useAccount } from "~/hooks/useAccount";
@@ -92,6 +93,7 @@ const Profile = () => {
 
   return (
     <div className="w-full h-full flex flex-col">
+      <Tooltip id="admin" className="z-50" />
       <div
         style={{
           backgroundImage: `url('${
@@ -126,6 +128,14 @@ const Profile = () => {
                   className="fill-primary"
                   data-tooltip-id="my-tooltip"
                   data-tooltip-content="Pro özelliklerine sahip!"
+                />
+              )}
+              {user?.role === "admin" && (
+                <img
+                  src={logo}
+                  className="w-5"
+                  data-tooltip-id="admin"
+                  data-tooltip-content="Loop Admin"
                 />
               )}
             </h1>

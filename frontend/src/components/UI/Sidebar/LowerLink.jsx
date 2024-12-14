@@ -8,6 +8,7 @@ const LowerLink = () => {
       {LowerLinks.map((link) => (
         <NavLink
           id={link.id}
+          key={link.id}
           to={link.to}
           className={({ isActive }) =>
             `flex items-center gap-3 w-full font-semibold py-2.5 rounded-xl px-4 text-base ${

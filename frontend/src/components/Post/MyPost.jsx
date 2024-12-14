@@ -54,9 +54,12 @@ const MyPost = ({ post }) => {
       <div className="flex items-start justify-start">{post?.content}</div>
       <div className="w-full flex justify-between items-center  py-1 ">
         <div className="flex items-center gap-x-1">
-          <button className="p-2 hover:bg-primary/20 rounded-full">
+          <Link
+            to={`/post/${post._id}`}
+            className="p-2 hover:bg-primary/20 rounded-full"
+          >
             <TbMessage size={20} className="text-primary" />
-          </button>
+          </Link>
           <span className="text-xs text-neutral-600">
             {post?.comments?.length}
           </span>

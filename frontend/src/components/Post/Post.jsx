@@ -8,6 +8,7 @@ import axios from "axios";
 import socket from "~/utils/socket";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/tr";
+import logo from "~/assets/admin.svg";
 import { MdVerified } from "react-icons/md";
 
 const Post = ({ post }) => {
@@ -66,6 +67,14 @@ const Post = ({ post }) => {
             <h1 className="font-semibold flex items-center gap-x-2">
               {post?.creatorName}{" "}
               {isVerified && <MdVerified className="fill-primary" />}
+              {user.role === "admin" && (
+                <img
+                  src={logo}
+                  className="w-5"
+                  data-tooltip-id="admin"
+                  data-tooltip-content="Loop Admin"
+                />
+              )}
             </h1>
             <span className="text-xs">@{post?.creatorUsername}</span>
           </div>
