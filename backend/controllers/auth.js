@@ -237,6 +237,18 @@ const updateUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await Auth.find({}).select("-password");
+
+    if (!users) {
+      return res.status(404).json({ message: "Kullanıcı bulunamadı." });
+    }
+
+    return res.status(200).json({ users });
+  } catch (error) {}
+};
+
 module.exports = {
   register,
   login,
@@ -246,4 +258,5 @@ module.exports = {
   resetPassword,
   getUserByUsername,
   updateUser,
+  getAllUsers,
 };
