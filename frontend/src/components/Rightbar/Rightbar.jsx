@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import Pro from "../UI/Rightbar/Pro";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
 
 const Rightbar = ({ isOpen }) => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+
+  const goToProfile = (e) => {
+    e.preventDefault();
+    if (username.trim()) {
+      navigate(`/profile/${username}`);
+    }
+    setUsername("");
+  };
+
   return (
     <div
       className={`
-         h-full bg-white border-l shadow-lg
-        transform transition-all duration-500  ease-in-out
+        h-full bg-white border-l shadow-lg transform transition-all duration-500 ease-in-out
         ${isOpen ? "w-80" : "w-0"}
       `}
       style={{ overflow: isOpen ? "visible" : "hidden" }}
@@ -17,13 +27,14 @@ const Rightbar = ({ isOpen }) => {
       <div
         className={`
           flex flex-col items-start justify-start gap-4 p-5
-          ${isOpen ? "opacity-100" : "opacity-0"}
-          transition-opacity duration-300
+          ${
+            isOpen ? "opacity-100" : "opacity-0"
+          } transition-opacity duration-300
         `}
       >
         {isOpen && (
           <>
-            <form className="w-full">
+            <form className="w-full" onSubmit={goToProfile}>
               <div className="flex items-center gap-x-2 border rounded-xl px-4 h-10">
                 <span>
                   <FiSearch />
@@ -32,7 +43,15 @@ const Rightbar = ({ isOpen }) => {
                   type="text"
                   className="h-full w-full outline-none"
                   placeholder="Ara..."
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
+                <button
+                  type="submit"
+                  className="bg-primary px-4 text-white rounded-xl"
+                >
+                  Ara
+                </button>
               </div>
             </form>
             <Pro />
@@ -41,10 +60,8 @@ const Rightbar = ({ isOpen }) => {
             </div>
             <div className="mt-auto w-full">
               <Link
-                className="
-                  w-full px-4 py-2 text-sm flex gap-x-2 rounded-md bg-zinc-50 font-semibold text-neutral-500 border
-                  hover:bg-zinc-100 justify-between items-center
-                "
+                to="/more"
+                className="w-full px-4 py-2 text-sm flex gap-x-2 rounded-md bg-zinc-50 font-semibold text-neutral-500 border hover:bg-zinc-100 justify-between items-center"
               >
                 Daha fazlası için tıklayın
                 <IoIosMore size={20} />

@@ -3,15 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   getUserById,
-  getUserByIdService,
+  getUserByUsername,
   resetUser,
-  updateUser,
 } from "~/redux/slices/usersSlice";
 import noAvatar from "~/assets/noavatar.jpg";
 import noBanner from "~/assets/banner.jpg";
 import logo from "~/assets/admin.svg";
-import { TbEditCircle } from "react-icons/tb";
-import Post from "~/components/Post/Post";
 import { useAccount } from "~/hooks/useAccount";
 import { ring } from "ldrs";
 import axios from "axios";
@@ -21,7 +18,9 @@ import { MdVerified } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
 
 const Profile = () => {
-  const { id } = useParams();
+  const { username } = useParams();
+
+  console.log(username);
   ring.register();
 
   const user = useAccount();
@@ -36,9 +35,11 @@ const Profile = () => {
 
   const isMe = validUser ? false : true;
 
+  console.log(currentUser);
+
   useEffect(() => {
     dispatch(resetUser());
-    dispatch(getUserByIdService(id));
+    dispatch(getUserByUsername(username));
   }, []);
 
   const followUser = async (currentUser) => {

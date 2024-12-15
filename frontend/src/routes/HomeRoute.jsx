@@ -20,7 +20,7 @@ export const HomeRoute = {
       loader: () => roleLoader(["admin", "user"]),
     },
     {
-      path: "/my-account/:username",
+      path: "/my-account",
       element: <MyAccount />,
       loader: () => roleLoader(["admin", "user"]),
     },
@@ -50,7 +50,7 @@ export const HomeRoute = {
       loader: () => roleLoader(["admin", "user"]),
     },
     {
-      path: "/profile/:id",
+      path: "/profile/:username",
       element: <Profile />,
       loader: () => roleLoader(["admin", "user"]),
     },

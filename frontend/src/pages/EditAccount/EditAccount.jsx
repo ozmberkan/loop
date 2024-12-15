@@ -17,8 +17,6 @@ const EditAccount = () => {
   const [editUser, setEditUser] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-  const dispatch = useDispatch();
-
   return (
     <>
       {editPhoto && (

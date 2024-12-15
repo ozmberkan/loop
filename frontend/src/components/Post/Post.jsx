@@ -52,7 +52,7 @@ const Post = ({ post }) => {
       />
       <div className="flex items-center  gap-x-1 justify-between w-full">
         <Link
-          to={`/profile/${post?.creatorId}`}
+          to={`/profile/${post?.creatorUsername}`}
           className="flex gap-x-2 hover:bg-neutral-100 p-2 rounded-md "
         >
           <img

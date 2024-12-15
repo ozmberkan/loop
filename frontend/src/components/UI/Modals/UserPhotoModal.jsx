@@ -10,11 +10,7 @@ import toast from "react-hot-toast";
 import noAvatar from "~/assets/noavatar.jpg";
 import { useDispatch } from "react-redux";
 import { createPost } from "~/redux/slices/postsSlice";
-import {
-  getUserById,
-  getUserByIdService,
-  updateUser,
-} from "~/redux/slices/usersSlice";
+import { updateUser } from "~/redux/slices/usersSlice";
 
 const UserPhotoModal = ({ setEditPhoto }) => {
   const rootModal = document.getElementById("root-modal");

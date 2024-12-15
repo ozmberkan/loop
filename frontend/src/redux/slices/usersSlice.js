@@ -56,20 +56,25 @@ export const getUserService = createAsyncThunk(
   }
 );
 
-export const getUserByIdService = createAsyncThunk(
-  "user/getUserByIdService",
-  async (id, { rejectWithValue }) => {
+export const getUserByUsername = createAsyncThunk(
+  "user/getUserByUsername",
+  async (username, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_MAIN_URL}/api/auth/getUserById/${id}`
+        `${
+          import.meta.env.VITE_MAIN_URL
+        }/api/auth/getUserByUsername/${username}`
       );
 
       return res.data.user;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(
+        error.response?.data?.message || "Bir hata oluştu."
+      );
     }
   }
 );
+
 export const getUserById = createAsyncThunk(
   "user/getUserById",
   async (id, { rejectWithValue }) => {
@@ -183,15 +188,15 @@ export const usersSlice = createSlice({
         state.user = null;
         state.error = null;
       })
-      .addCase(getUserByIdService.rejected, (state, action) => {
+      .addCase(getUserByUsername.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(getUserByIdService.pending, (state) => {
+      .addCase(getUserByUsername.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(getUserByIdService.fulfilled, (state, action) => {
+      .addCase(getUserByUsername.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.currentUser = action.payload;
         state.error = null;

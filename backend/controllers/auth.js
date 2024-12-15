@@ -196,9 +196,11 @@ const resetPassword = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
+const getUserByUsername = async (req, res) => {
   try {
-    const user = await Auth.findById(req.params.id).select("-password");
+    const user = await Auth.findOne({ username: req.params.username }).select(
+      "-password"
+    );
 
     if (!user) {
       return res.status(404).json({ message: "Kullanıcı bulunamadı" });
@@ -206,7 +208,8 @@ const getUserById = async (req, res) => {
 
     res.status(200).json({ user });
   } catch (error) {
-    return res.status(500).json({ message: "Sunucu Hatası" + error });
+    console.error(error);
+    return res.status(500).json({ message: "Sunucu Hatası: " + error.message });
   }
 };
 
@@ -241,6 +244,6 @@ module.exports = {
   signOut,
   forgotPassword,
   resetPassword,
-  getUserById,
+  getUserByUsername,
   updateUser,
 };
