@@ -44,8 +44,6 @@ const Post = ({ post }) => {
     }
   };
 
-  const isVerified = user.premium === true;
-
   return (
     <div className="w-full max-h-[700px] border bg-white rounded-xl  shadow-md p-4 flex flex-col items-start justify-start gap-5">
       <img
@@ -66,7 +64,7 @@ const Post = ({ post }) => {
           <div className="flex flex-col items-start justify-start -space-y-1">
             <h1 className="font-semibold flex items-center gap-x-2">
               {post?.creatorName}{" "}
-              {isVerified && <MdVerified className="fill-primary" />}
+              {post?.creatorPremium && <MdVerified className="fill-primary" />}
               {post?.creatorRole === "admin" && (
                 <img
                   src={logo}

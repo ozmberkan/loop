@@ -26,6 +26,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    creatorPremium: {
+      type: Boolean,
+      required: true,
+    },
     comments: {
       type: Array,
       default: [],

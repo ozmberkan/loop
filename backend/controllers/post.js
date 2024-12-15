@@ -8,6 +8,7 @@ const createPost = async (req, res) => {
       creatorName,
       creatorImage,
       creatorRole,
+      creatorPremium,
       content,
       image,
     } = req.body;
@@ -18,6 +19,7 @@ const createPost = async (req, res) => {
       creatorImage,
       creatorName,
       creatorRole,
+      creatorPremium,
       content,
       image,
     });
