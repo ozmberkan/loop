@@ -7,6 +7,7 @@ const createPost = async (req, res) => {
       creatorUsername,
       creatorName,
       creatorImage,
+      creatorRole,
       content,
       image,
     } = req.body;
@@ -16,6 +17,7 @@ const createPost = async (req, res) => {
       creatorUsername,
       creatorImage,
       creatorName,
+      creatorRole,
       content,
       image,
     });
@@ -110,6 +112,7 @@ const commentPost = async (req, res) => {
       creatorName,
       creatorUsername,
       creatorImage,
+      creatorRole,
       createdAt: new Date(),
     };
 

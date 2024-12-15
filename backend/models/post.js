@@ -22,6 +22,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    creatorRole: {
+      type: String,
+      required: true,
+    },
     comments: {
       type: Array,
       default: [],

@@ -67,7 +67,7 @@ const Post = ({ post }) => {
             <h1 className="font-semibold flex items-center gap-x-2">
               {post?.creatorName}{" "}
               {isVerified && <MdVerified className="fill-primary" />}
-              {user.role === "admin" && (
+              {post?.creatorRole === "admin" && (
                 <img
                   src={logo}
                   className="w-5"

@@ -50,6 +50,7 @@ const PostAddModal = ({ setPostModal }) => {
         creatorId: user?._id,
         creatorUsername: user?.username,
         creatorName: user?.displayName,
+        creatorRole: user?.role,
         creatorImage: user?.photoURL ? user?.photoURL : "no-avatar",
         image: uploadedImage.secure_url,
       };

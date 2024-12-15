@@ -130,7 +130,7 @@ const Profile = () => {
                   data-tooltip-content="Pro özelliklerine sahip!"
                 />
               )}
-              {user?.role === "admin" && (
+              {currentUser?.role === "admin" && (
                 <img
                   src={logo}
                   className="w-5"
